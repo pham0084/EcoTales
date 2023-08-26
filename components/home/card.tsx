@@ -51,6 +51,6 @@ export default function Card({
             </Balancer>
           </div>
         </div>
-      </div> // Removed vertical padding
+      </div>
   );
 }
