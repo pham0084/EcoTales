@@ -110,11 +110,6 @@ const features = [
         "",
     demo: <div style={{}}>
       <WebcamComponent />
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-        <img src="./dino.jpg" alt="Dinosaur" style={{ width: '30%' }} />
-        <img src="./earth.png" alt="Earth" style={{ width: '30%' }} />
-      </div>
-
 
     </div>
 
