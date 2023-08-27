@@ -1,3 +1,5 @@
+'use client';
+
 import Card from "@/components/home/card";
 import Balancer from "react-wrap-balancer";
 import { DEPLOY_URL } from "@/lib/constants";
@@ -7,6 +9,7 @@ import ComponentGrid from "@/components/home/component-grid";
 import Image from "next/image";
 import { nFormatter } from "@/lib/utils";
 import WebcamComponent from "@/components/home/WebcamComponent";
+import MCQComponent from "@/components/home/MCQ";
 export default async function Home() {
   const { stargazers_count: stars } = await fetch(
       "https://api.github.com/repos/steven-tey/precedent",
@@ -140,6 +143,26 @@ const features = [
     description:
         "Recyle everyday to get 100% green status",
     demo: <WebVitals />,
+  },
+  {
+    title: 'MCQ Section',
+    description: 'Test your knowledge with these multiple-choice questions.',
+    demo: (
+      <div>
+        {/* MCQComponent usage */}
+        <MCQComponent
+          question="What is the capital of France?"
+          options={[
+            { id: 1, text: 'Paris' },
+            { id: 2, text: 'Berlin' },
+            { id: 3, text: 'Madrid' },
+            { id: 4, text: 'Rome' },
+          ]}
+        />
+        {/* Other MCQComponent instances */}
+        {/* ... */}
+      </div>
+    ),
   },
   {
     title: " components",
