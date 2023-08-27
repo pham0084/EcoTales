@@ -51,21 +51,19 @@ const WebcamComponent: React.FC<WebcamProps> = ({ width = 640, height = 640 }) =
     };
 
     return (
-        <div className="flex flex-col items-center mt-4"> {/* Adjusted margin-top here */}
+       <div className="flex flex-col items-center mt-4">
             <video ref={videoRef} width={width} height={height} autoPlay playsInline muted />
             <div style={{ position: 'relative', display: 'inline-block' }}>
                 <img src="./frog.png" alt="Dinosaur" style={{ width: '100%', height: 'auto' }} />
 
                 <button
                     onClick={captureImageAndPause}
-                    className={`absolute bg-${imageCaptured ? 'gray' : 'green'}-300 hover:bg-${imageCaptured ? 'gray' : 'green'}-400 text-${imageCaptured ? 'gray' : 'green'}-600 font-bold py-2 px-4 rounded border-${imageCaptured ? 'gray' : 'green'}-500 border-4 mt-2`}
+                    className={`absolute ${imageCaptured ? 'bg-gray-300 hover:bg-gray-400 text-gray-600 border-gray-500' : 'bg-green-300 hover:bg-green-400 text-green-600 border-green-500'} font-bold py-2 px-4 rounded border-4 mt-2`}
                     style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}
                 >
                     {imageCaptured ? 'Captured' : 'Capture and Pause'}
                 </button>
             </div>
-
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
     );
 };
