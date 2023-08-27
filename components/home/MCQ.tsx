@@ -1,42 +1,60 @@
 import React, { useState } from 'react';
 
-interface Option {
-    id: number;
-    text: string;
+interface MCQOption {
+  id: number;
+  text: string;
+  isCorrect: boolean;
 }
 
 interface MCQProps {
-    question: string;
-    options: Option[];
+  question: string;
+  options: MCQOption[];
 }
 
-const MCQ: React.FC<MCQProps> = ({ question, options }) => {
-    const [selectedOption, setSelectedOption] = useState<number | null>(null);
+const MCQComponent: React.FC<MCQProps> = ({ question, options }) => {
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean>(false);
 
-    const handleOptionClick = (optionId: number) => {
-        setSelectedOption(optionId);
-    };
+  const handleOptionSelect = (optionId: number, isCorrect: boolean) => {
+    setSelectedOption(optionId);
+    setIsAnswerCorrect(isCorrect);
+  };
 
-    return (
-        <div className="p-4 border rounded-md shadow-md">
-            <p className="mb-4 text-lg font-semibold">{question}</p>
-            <div className="space-y-2">
-                {options.map((option) => (
-                    <div
-                        key={option.id}
-                        className={`cursor-pointer p-2 rounded-md ${
-                            selectedOption === option.id
-                                ? 'bg-blue-500 text-white'
-                                : 'hover:bg-gray-200'
-                        }`}
-                        onClick={() => handleOptionClick(option.id)}
-                    >
-                        {option.text}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div style={{ marginBottom: '20px' }}>
+      <h3>{question}</h3>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {options.map((option) => (
+          <li
+            key={option.id}
+            style={{
+              cursor: 'pointer',
+              padding: '10px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              marginBottom: '5px',
+              backgroundColor:
+                selectedOption === option.id ? 'lightgreen' : 'transparent',
+            }}
+            onClick={() => handleOptionSelect(option.id, option.isCorrect)}
+          >
+            {option.text}
+            {option.isCorrect && selectedOption !== null && isAnswerCorrect && (
+              <span
+                style={{
+                  marginLeft: '10px',
+                  color: 'green',
+                  fontWeight: 'bold',
+                }}
+              >
+                Correct Answer
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
-export default MCQ;
+export default MCQComponent;
