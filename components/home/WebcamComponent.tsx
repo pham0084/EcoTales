@@ -34,24 +34,29 @@ const WebcamComponent: React.FC<WebcamProps> = ({ width = 640, height = 640 }) =
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
 
-            canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const context = canvas.getContext('2d');
+            if (context) {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            const capturedDataURL = canvas.toDataURL('image/png');
+                const capturedDataURL = canvas.toDataURL('image/png');
 
-            const a = document.createElement('a');
-            a.href = capturedDataURL;
-            a.download = 'captured_image.png';
-            a.click();
+                const a = document.createElement('a');
+                a.href = capturedDataURL;
+                a.download = 'captured_image.png';
+                document.body.appendChild(a); // Append the link to the document
+                a.click();
+                document.body.removeChild(a); // Remove the link from the document
 
-            setImageCaptured(true);
+                setImageCaptured(true);
 
-            // Pause the video stream
-            video.pause();
+                // Pause the video stream
+                video.pause();
+            }
         }
     };
 
     return (
-       <div className="flex flex-col items-center mt-4">
+        <div className="flex flex-col items-center mt-4">
             <video ref={videoRef} width={width} height={height} autoPlay playsInline muted />
             <div style={{ position: 'relative', display: 'inline-block' }}>
                 <img src="./frog.png" alt="Dinosaur" style={{ width: '100%', height: 'auto' }} />
@@ -64,8 +69,10 @@ const WebcamComponent: React.FC<WebcamProps> = ({ width = 640, height = 640 }) =
                     {imageCaptured ? 'Captured' : 'Capture and Pause'}
                 </button>
             </div>
+            <canvas ref={canvasRef} style={{ display: 'none' }} />
         </div>
     );
 };
 
 export default WebcamComponent;
+
